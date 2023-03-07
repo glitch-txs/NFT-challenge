@@ -1,11 +1,31 @@
+import { useNFTsMetadata } from '@/queries/hooks/useNFTsMetadata'
+import Image from 'next/image'
 import React, { useState } from 'react'
 import Card from './components/card/Card'
+import Modal from './components/modal/Modal'
 import s from './index.module.scss'
-type Props = {}
 
-const Home = (props: Props) => {
+const Home:React.FC = () => {
 
-    const [contractAddress, setContractAddress] = useState<string>('')
+  const [contractAddress, setContractAddress] = useState<string>('')
+  const [modal, setModal] = useState<boolean>(false)
+  const [selectedNFT, setSelectedNFT] = useState<any>({
+    media:[
+      {
+        gateway:''
+      }
+    ],
+    title:'',
+    description:'',
+    contract:{
+      address:""
+    },
+    id:{
+      tokenId:""
+    }
+  })
+
+  const {data} = useNFTsMetadata(contractAddress)
 
   return (
     <div className={s.container} >
@@ -23,15 +43,36 @@ const Home = (props: Props) => {
         />
 
         <div className={s.NFTsContainer} >
-            <Card/>
-            <Card/>
-            <Card/>
-            <Card/>
-            <Card/>
-            <Card/>
-            <Card/>
-            <Card/>
+          {
+            data?.nfts ? data.nfts.map((nft: any, index: number)=>(
+              <span key={index} onClick={()=>{
+                setSelectedNFT(nft)
+                setModal(true)
+              }} >
+              <Card title={nft.title} image={nft.media[0].gateway} description={nft.description} />
+              </span>
+            ))
+             : <div>Loading...</div>
+          }
+            
         </div>
+
+        <Modal modal={modal} setModal={setModal} >
+          <div className={s.modalImage} >
+            <Image src={selectedNFT.media[0].gateway} width={250} height={250} alt=''/> 
+          </div>
+          <div className={s.modalDescriptionContainer} >
+            <div className={s.modalTitle} >{selectedNFT.title}</div>
+            <div className={s.modalDescription} >{selectedNFT.description}</div>
+            <a
+            target="_blank"
+            href={`https://opensea.io/es/assets/ethereum/${selectedNFT.contract.address}/${Number(selectedNFT.id.tokenId)}`} 
+            rel="noopener noreferrer" 
+            className={s.modalBTN} >
+              Buy Now
+            </a>
+          </div>
+        </Modal>
     </div>
   )
 }

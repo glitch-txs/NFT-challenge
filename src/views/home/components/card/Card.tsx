@@ -2,22 +2,23 @@ import Image from 'next/image'
 import React from 'react'
 import s from './Card.module.scss'
 
-type Props = {}
+type Props = {
+  title: string
+  description: string
+  image: string
+}
 
-const Card = (props: Props) => {
+const Card = ({title, description, image}: Props) => {
   return (
     <div className={s.container} >
         <div className={s.imgContainer} >
-            <Image src='/nft.png' width={250} height={250} alt='' />
+            <Image src={image} width={250} height={250} alt='' />
         </div>
         <div className={s.title} >
-            DominioFi
+            {title}
         </div>
         <div className={s.description} >
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
-            Aliquid veritatis beatae tempora animi nemo ratione quibusdam 
-            laborum exercitationem nam velit optio sequi natus illum nobis molestias, 
-            ullam, voluptate quisquam. Ratione!
+            {description}
         </div>
     </div>
   )

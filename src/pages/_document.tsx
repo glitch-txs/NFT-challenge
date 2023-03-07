@@ -10,6 +10,7 @@ export default function Document() {
       </Head>
       <body>
         <Main />
+        <div id='nft-modal' />
         <NextScript />
       </body>
     </Html>

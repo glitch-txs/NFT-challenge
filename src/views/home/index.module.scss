@@ -57,3 +57,90 @@
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 20px;
 }
+
+//modal
+
+.modalImage{
+  line-height: none;
+  margin-left: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img{
+    border-radius: 8px;
+  }
+}
+
+.modalDescriptionContainer{
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.modalTitle{
+  width: 100%;
+  font-weight: 700;
+  font-size: 30px;
+  text-align: center;
+}
+
+.modalDescription{
+  margin: 9px;
+  margin-top: 0;
+  display: -webkit-box; 
+  overflow: hidden; 
+  font-size: 15px;
+  -webkit-line-clamp: 3; 
+  -webkit-box-orient: vertical;
+}
+
+.modalBTN{
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 12px;
+  background-color: rgb(32, 129, 226);
+  border: 2px solid rgb(32, 129, 226);
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+  width: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+
+  &:hover{
+    background-color: rgb(46, 142, 238);
+  }
+}
+@media (max-width:625px){
+  .modalImage{
+    margin: 0;
+  }
+}
+
+@media (max-width:540px){
+  .input{
+    width: 80%;
+  }
+}
+
+@media (max-width:400px){
+  .title{
+    font-size: 40px;
+  }
+  .input{
+    font-size: 17px;
+  }
+}
+
+@media (max-width:360px){
+  .modalImage{
+    img{
+      width: 200px;
+      height: auto;
+    }
+  }
+}
