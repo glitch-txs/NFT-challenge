@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import React from 'react'
+import React, { useState } from 'react'
 import s from './Card.module.scss'
 
 type Props = {
@@ -9,17 +9,26 @@ type Props = {
 }
 
 const Card = ({title, description, image}: Props) => {
+
+  const [isLoaded, setIsLoaded] = useState<boolean>(false)
+
   return (
-    <div className={s.container} >
-        <div className={s.imgContainer} >
-            <Image src={image} width={250} height={250} alt='' />
-        </div>
-        <div className={s.title} >
-            {title}
-        </div>
-        <div className={s.description} >
-            {description}
-        </div>
+    <div className={isLoaded ? s.container : s.loading} >
+        {
+        <>
+          <div className={s.imgContainer} >
+              <Image src={image} width={250} height={250} alt='' onLoad={()=>{
+                console.log("completed")
+                setIsLoaded(true)}} />
+          </div>
+          <div className={s.title} >
+              {isLoaded && title}
+          </div>
+          <div className={s.description} >
+              {isLoaded && description}
+          </div> 
+        </>
+        }
     </div>
   )
 }

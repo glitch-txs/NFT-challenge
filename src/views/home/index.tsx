@@ -1,3 +1,4 @@
+import Loader from '@/components/loader'
 import { useNFTsMetadata } from '@/queries/hooks/useNFTsMetadata'
 import Image from 'next/image'
 import React, { useState } from 'react'
@@ -26,7 +27,7 @@ const Home:React.FC = () => {
   })
 
   const {data} = useNFTsMetadata(contractAddress)
-
+  
   return (
     <div className={s.container} >
         <div className={s.title} >
@@ -42,21 +43,28 @@ const Home:React.FC = () => {
         onChange={((e)=>setContractAddress(e.target.value))}
         />
 
-        <div className={s.NFTsContainer} >
-          {
-            data?.nfts ? data.nfts.map((nft: any, index: number)=>(
+        {
+          (contractAddress == '' && !data) ?
+          <div className={s.searchPlaceholder} >
+            Search For the best NFTs
+          </div>
+          : data?.nfts ?
+          <div className={s.NFTsContainer} >
+            {data.nfts.map((nft: any, index: number)=>(
               <span key={index} onClick={()=>{
                 setSelectedNFT(nft)
                 setModal(true)
               }} >
               <Card title={nft.title} image={nft.media[0].gateway} description={nft.description} />
               </span>
-            ))
-             : <div>Loading...</div>
-          }
-            
-        </div>
+            ))}       
+          </div>:
+          <div className={s.loader}>
+            <Loader/>
+          </div>
+        }      
 
+        {/* Modal */}
         <Modal modal={modal} setModal={setModal} >
           <div className={s.modalImage} >
             <Image src={selectedNFT.media[0].gateway} width={250} height={250} alt=''/> 

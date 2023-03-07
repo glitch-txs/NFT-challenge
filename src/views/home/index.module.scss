@@ -24,6 +24,7 @@
   backdrop-filter: blur(21px);
   -webkit-backdrop-filter: blur(21px);
   border-radius: 8px;
+  padding: 0 10px;
   font-weight: 700;
   font-size: 18px;
   text-align: center;
@@ -31,6 +32,9 @@
   margin-top: 10px;
   height: 54px;
   border: 1px solid rgb(165, 169, 197, 0.5);
+  -o-text-overflow: ellipsis;
+  -ms-text-overflow: ellipsis;
+  text-overflow: ellipsis;
 
   &:focus{
     border: solid 2px rgb(246, 90, 226);
@@ -143,4 +147,27 @@
       height: auto;
     }
   }
+}
+
+.loader{
+  width: 100%;
+  height: 400px;
+  font-size: 40px;
+  padding: 0 10px;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.searchPlaceholder{
+  width: 100%;
+  height: 400px;
+  font-size: 40px;
+  padding: 0 10px;
+  opacity: 0.1;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
